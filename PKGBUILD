@@ -1,8 +1,8 @@
 # Maintainer: James An <james@jamesan.ca>
 
-_pkgname=bencodepy
+_pkgname=bhencode
 pkgname=python-${_pkgname}
-pkgver=0.9.4
+pkgver=0.9.6
 pkgrel=1
 pkgdesc='A small Python 3 library for encoding and decoding Bencode data'
 arch=('any')
