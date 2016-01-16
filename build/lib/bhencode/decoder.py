@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from collections.abc import Iterable
-import bencodepy
+import bhencode
 
 
 class Decoder:
@@ -13,7 +13,7 @@ class Decoder:
         b = self.data[self.idx: self.idx + i]
         self.idx += i
         if len(b) != i:
-            raise bencodepy.DecodingError(
+            raise bhencode.DecodingError(
                 "Incorrect byte length returned between indexes of {0} and {1}. Possible unexpected End of File."
                     .format(str(self.idx), str(self.idx - i)))
         return b
@@ -27,7 +27,7 @@ class Decoder:
             self.idx = i + 1
             return b
         except ValueError:
-            raise bencodepy.DecodingError(
+            raise bhencode.DecodingError(
                 'Unable to locate terminator character "{0}" after index {1}.'.format(str(terminator), str(self.idx)))
 
     def __parse(self) -> object:
@@ -44,9 +44,9 @@ class Decoder:
         elif char == b'l':
             return self.__parse_list()
         elif char == b'':
-            raise bencodepy.DecodingError('Unexpected End of File at index position of {0}.'.format(str(self.idx)))
+            raise bhencode.DecodingError('Unexpected End of File at index position of {0}.'.format(str(self.idx)))
         else:
-            raise bencodepy.DecodingError(
+            raise bhencode.DecodingError(
                 'Invalid token character ({0}) at position {1}.'.format(str(char), str(self.idx)))
 
     def decode(self) -> Iterable:

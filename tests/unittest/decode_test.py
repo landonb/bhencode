@@ -1,6 +1,6 @@
 import unittest
-from bencodepy.decoder import Decoder
-from bencodepy.exceptions import DecodingError
+from bhencode.decoder import Decoder
+from bhencode.exceptions import DecodingError
 from collections import OrderedDict
 
 
