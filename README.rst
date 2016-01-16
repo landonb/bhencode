@@ -31,5 +31,5 @@ The easiest way to install this library is using pip.
 
 .. code-block:: bash
 
-    git clone https://github.com/landonb/bhencode.git
+    pip install https://github.com/landonb/bhencode/archive/master.zip
 
