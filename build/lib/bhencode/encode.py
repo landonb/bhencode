@@ -38,10 +38,29 @@ def encode(obj, encoding='utf-8', strict=True):
         """Ben-encodes dictionary from dict."""
         nonlocal coded_byte_list
         coded_byte_list.append(b'd')
-        for k in d:
+        # 2016.01.14: [lb] wonders why the master BencodePy project
+        # doesn't sort the dictionary -- isn't that the whole point
+        # of bencoding?
+		# From https://en.wikipedia.org/wiki/Bencode:
+		# "All keys must be byte strings and must appear in lexicographical order."
+		# Thus, the original code seems wrong:
+        #   for k in d:
+        for k in sorted(d.keys()):
             __select_encoder(k)
             __select_encoder(d[k])
         coded_byte_list.append(b'e')
+
+    # Non-standard ben-encoding.
+    def __encode_float(i: float) -> None:
+        """Ben-encodes floating point number from float."""
+        nonlocal coded_byte_list
+        coded_byte_list.append(b'i' + bytes(str(i), 'utf-8') + b'e')
+
+    # Non-standard ben-encoding.
+    def __encode_none(i: None) -> None:
+        """Ben-encodes None from nothing."""
+        nonlocal coded_byte_list
+        __encode_str(str(None))
 
     opt = {
         bytes: lambda x: __encode_byte_str(x),
@@ -51,6 +70,8 @@ def encode(obj, encoding='utf-8', strict=True):
         str: lambda x: __encode_str(x),
         int: lambda x: __encode_int(x),
         tuple: lambda x: __encode_tuple(x),
+        float: lambda x: __encode_float(x),
+        None: lambda x: __encode_none(x),
     }
 
     def __select_encoder(o: object) -> bytes:
@@ -74,6 +95,11 @@ def encode(obj, encoding='utf-8', strict=True):
                 __encode_int(o)
             elif isinstance(o, tuple):
                 __encode_tuple(o)
+            # The rest are non-standard ben-encodings, used for object hashing.
+            elif isinstance(o, float):
+                __encode_float(o)
+            elif o is None:
+                __encode_none(o)
             else:
                 if strict:
                     nonlocal coded_byte_list
