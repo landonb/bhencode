@@ -4,6 +4,6 @@ __license__ = "GPL v2"
 
 from .exceptions import EncodingError
 from .exceptions import DecodingError
-from .decoder import decode
-from .decoder import decode_from_file
+from .decode import decode
+from .decode import decode_from_file
 from .encode import encode

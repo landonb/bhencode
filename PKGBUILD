@@ -2,9 +2,9 @@
 
 _pkgname=bhencode
 pkgname=python-${_pkgname}
-pkgver=0.9.6
+pkgver=0.10.0
 pkgrel=1
-pkgdesc='A small Python 3 library for encoding and decoding Bencode data'
+pkgdesc='Human-friendly benevolent Bencoder/decoder.'
 arch=('any')
 url="https://pypi.python.org/pypi/${_pkgname}/${_pkgver}"
 license=('GPL')

@@ -7,7 +7,8 @@ A simple Bencoder for Python based on
 Differences from BencodePy
 --------------------------
 
-- The encoder handles the non-standard elements, ``float`` and ``None``.
+- The encoder handles the non-standard elements,
+  such as ``float``, ``None``, and ``bool``.
 
 - The dict encoder is fixed so that dicts are sorted lexically by
   key name, otherwise the bencode string differs between uses.
